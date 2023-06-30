@@ -1,0 +1,13 @@
+<div>
+    <h1 th:text="${taskList.title}"/>
+    <ul th:each="aTask : ${taskList.insides}">
+        <li>
+            <a th:href="@{/task/{id}(id=${aTask.id})}"
+               th:text="${aTask.title}"/>
+            <span th:text="${aTask.start}" />
+            <span th:text="${aTask.finish}" />
+            <a th:href="@{/task/{id}(id=${aTask.assignee.id})}"
+               th:text="${aTask.assignee.name}"/>
+        </li>
+    </ul>
+</div>

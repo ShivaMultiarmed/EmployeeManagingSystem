@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        <title>Sign up</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form  th:method="post" th:action="signup">
+            <h1>Sign up</h1>
+            <input name="login" />
+            <input name="name" />
+            <input name="surname" />
+            <input name="email" />
+            <input type="password" name="password" />
+            <input type="submit" value="sign up" />
+        </form>
+    </body>
+</html>

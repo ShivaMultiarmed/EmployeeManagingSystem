@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        <title>A single project</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h1 th:text="${project.title}" />
+            <p th:text="${project.description}" />
+        </div>
+        <a th:href="@{${'/projects/' + project.id + '/edit'}}" th:text='edit' />
+        <form th:method="DELETE"
+              th:action="@{${'/projects/' + project.id + '/remove'}}">
+            <input type="submit" value="Remove" />
+        </form>
+        <!--<div th:insert="sideBar :: sideBar" />
+        <div th:each="${taskList : project.insides}">
+            <div>
+                <h1 th:text="${taskList.title}"/>
+                <ul th:each="aTask : ${taskList.insides}">
+                    <li>
+                        <a th:href="@{/task/{id}(id=${aTask.id})}"
+                           th:text="${aTask.title}"/>
+                        <span th:text="${aTask.start}" />
+                        <span th:text="${aTask.finish}" />
+                        <a th:href="@{/task/{id}(id=${aTask.assignee.id})}"
+                           th:text="${aTask.assignee.name}"/>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+    </body>
+</html>

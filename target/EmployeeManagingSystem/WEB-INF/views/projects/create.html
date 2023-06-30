@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+    <head>
+        <title>Create a project</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Create a project</h1>
+        <form th:method="post" th:action="create" th:object="${project}">
+            <input th:field="*{title}" />
+            <textarea th:field="*{description}" />
+            <input type="submit" value="create" />
+        </form>
+    </body>
+</html>
