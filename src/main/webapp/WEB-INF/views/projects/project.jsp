@@ -1,3 +1,5 @@
+<%@page import="mikhail.shell.ems.models.TaskList"%>
+<%@page import="java.util.List"%>
 <%@page import="mikhail.shell.ems.models.Project"%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%
@@ -21,6 +23,20 @@
             <input type="hidden" name="_method" value="DELETE" />
             <input type="submit" value="Remove" />
         </form>   
-        
+            <div>
+                <%
+                    List<TaskList> taskLists = project.getInsides();
+                    for (TaskList taskList : taskLists)
+                    {
+                        request.setAttribute("taskList", taskList);
+                    %>
+                    <jsp:include page="../blocks/list.jsp">
+                        <jsp:param name="model" value="taskList" />
+                    </jsp:include>
+                    
+                    <%
+                    }
+                %>
+            </div>
     </body>
 </html>

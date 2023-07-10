@@ -31,7 +31,7 @@ public class ProjectsController extends AbstractController<Project>{
         request.setAttribute("project", (Project)pDAO.getOne(id));
         return "/projects/project"; 
     }
-    @Override
+    /*@Override
     public String startCreation(HttpServletRequest request)
     {
         Project p = new Project();
@@ -40,22 +40,16 @@ public class ProjectsController extends AbstractController<Project>{
         request.setAttribute("project", p);
         request.setAttribute("projects", ps);
         return "/projects/create";
-    }
+    }*/
     @Override
-    public String endCreation(@ModelAttribute("project")
+    public String create(@ModelAttribute("project")
             Project project)
     {
         pDAO.create(project);
         return "redirect:/projects/"+project.getId();
     }
-    public String startEdit(HttpServletRequest request, 
-            @PathVariable("id") long id)
-    {
-        request.setAttribute("project", (Project) pDAO.getOne(id));
-        return "/projects/edit";
-    }
     @Override
-    public String endEdit(@ModelAttribute("project")Project project)
+    public String edit(@ModelAttribute("project")Project project)
     {
         pDAO.edit(project);
         return "redirect:/projects";

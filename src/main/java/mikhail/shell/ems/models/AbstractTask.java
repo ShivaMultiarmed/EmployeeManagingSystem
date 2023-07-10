@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component 
 @Scope("prototype")
-public class AbstractTask<T extends AbstractTask<T>> implements Serializable {
+public class AbstractTask<T extends AbstractTask>
+        implements Serializable {
     @Getter protected long id;
     @Getter @Setter protected String title, description;
     @Getter @Setter protected Date start, finish;
@@ -20,7 +21,6 @@ public class AbstractTask<T extends AbstractTask<T>> implements Serializable {
     @Getter @Setter protected Progress progress;
     public AbstractTask() {
         insides = new ArrayList<T>();
-        System.out.println("THE LAST DEPLOY");
         progress = Progress.TODO;
     }
     public void setId(long id)

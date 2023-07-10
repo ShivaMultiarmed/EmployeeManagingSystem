@@ -2,21 +2,22 @@
 <%@page import="mikhail.shell.ems.models.TaskList"%>
 <%@page import="mikhail.shell.ems.models.AbstractTask"%>
 <%
-    TaskList list = (TaskList) request.getAttribute("list");
+    TaskList list = (TaskList) request.getAttribute("taskList");
 %>
 <div class="list">
     <h1>${list.title}</h1>
     <p>${list.description}</p>
+    <ul>
     <%
         if (!list.getInsides().isEmpty())
         {
-            for(AbstractTask absTask : list.getInsides())
+            for(ATask task : list.getInsides())
             {
-                ATask task = (ATask) absTask;
                 %>
                 <li><%=task.getTitle()%></li>
                 <%
             }
         }
     %>
+    </ul>
 </div>

@@ -24,27 +24,13 @@ public class TaskController extends AbstractController <ATask> {
     } 
 
     @Override
-    public String startCreation(HttpServletRequest request) {
-        ATask emptyTask = new ATask();
-        request.setAttribute("task", emptyTask);
-        return "tasks/create";
-    }
-
-    @Override
-    public String endCreation(ATask task) {
+    public String create(ATask task) {
         tDAO.create(task);
         return "redirect:/tasks/" + task.getId();
     }
 
     @Override
-    public String startEdit(HttpServletRequest request, long id) {
-        ATask task =  (ATask)tDAO.getOne(id);
-        request.setAttribute("task", task);
-        return "/tasks/edit";
-    }
-
-    @Override
-    public String endEdit(ATask task) {
+    public String edit(ATask task) {
         tDAO.edit(task);
         return "redirect:/tasks/" + task.getId();
     }
