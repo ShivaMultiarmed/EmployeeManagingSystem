@@ -10,19 +10,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("singleton")
-public class ProjectDAO extends AbstractDAO {
+public class ProjectDAO extends AbstractDAO<Project> {
     public ProjectDAO(JdbcTemplate jdbc)
     {
         super(jdbc);
     }
     @Override
-    public List<AbstractTask> getAll()
+    public List<Project> getAll()
     {
         return getJdbc().query("SELECT * FROM `projects`"
             ,new BeanPropertyRowMapper(Project.class));
     }
     @Override
-    public AbstractTask getOne(long id) 
+    public Project getOne(long id) 
     {
         List<Project> p = getJdbc().query("SELECT * FROM `projects`"
                 + " WHERE `id` = ?",
@@ -34,7 +34,7 @@ public class ProjectDAO extends AbstractDAO {
             return null;
     }
     @Override
-    public void create(AbstractTask project)
+    public void create(Project project)
     {
         getJdbc().update("INSERT INTO `projects` ("
                 + "`title`, `description`"
@@ -44,7 +44,7 @@ public class ProjectDAO extends AbstractDAO {
                 project.getDescription());
     }
     @Override
-    public void edit(AbstractTask project)
+    public void edit(Project project)
     {
         getJdbc().update("UPDATE `projects` "
                 + "SET `title` = ?,"

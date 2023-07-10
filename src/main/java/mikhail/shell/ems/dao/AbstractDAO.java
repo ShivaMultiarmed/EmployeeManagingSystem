@@ -7,7 +7,7 @@ import mikhail.shell.ems.models.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public abstract class AbstractDAO {
+public abstract class AbstractDAO<T extends AbstractTask> {
     
     
     @Getter protected final JdbcTemplate jdbc;
@@ -18,9 +18,9 @@ public abstract class AbstractDAO {
     {
         this.jdbc = jdbc;
     }
-    public abstract List<AbstractTask> getAll();
+    public abstract List<T> getAll();
     public abstract AbstractTask getOne(long id);
-    public abstract void create(AbstractTask absTask);
-    public abstract void edit(AbstractTask absTask);
+    public abstract void create(T absTask);
+    public abstract void edit(T absTask);
     public abstract void remove(long id);
 }

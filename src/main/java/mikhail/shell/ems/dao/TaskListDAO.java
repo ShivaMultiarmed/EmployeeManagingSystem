@@ -5,12 +5,13 @@ import java.util.List;
 import mikhail.shell.ems.models.AbstractTask;
 import mikhail.shell.ems.models.TaskList;
 import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope("singleton")
-public class TaskListDAO extends AbstractDAO {
+public class TaskListDAO extends AbstractDAO<TaskList> {
     private final List<TaskList> taskLists = new ArrayList<TaskList>();
     
     {
@@ -23,22 +24,28 @@ public class TaskListDAO extends AbstractDAO {
     }
 
     @Override
-    public List<AbstractTask> getAll() {
+    public List<TaskList> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public AbstractTask getOne(long id) {
+    public TaskList getOne(long id) {
+        List<TaskList> tls = getJdbc().query("SELECT * FROM `tasklists` "
+                + "WHERE `id` = ?;", new String[] {id+""},
+                new BeanPropertyRowMapper(TaskList.class));
+        if (tls.isEmpty())
+            return null;
+        else
+            return tls.get(0);
+    }
+
+    @Override
+    public void create(TaskList taskList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void create(AbstractTask at) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void edit(AbstractTask at) {
+    public void edit(TaskList taskList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

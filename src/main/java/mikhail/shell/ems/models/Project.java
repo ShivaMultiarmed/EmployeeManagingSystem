@@ -5,10 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component 
 @Scope("prototype")
-public class Project extends AbstractTask {
+public class Project extends AbstractTask<Project> {
     public Project(){}
     public Project(long id, String title)
     {
+        System.out.println("PROJECT IN THE NEW DEPLOY");
         this.id = id;
         this.title = title;
     }

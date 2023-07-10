@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("singleton")
-public class ATaskDAO extends AbstractDAO{
+public class ATaskDAO extends AbstractDAO<ATask>{
     private final List<ATask> aTasks = new ArrayList<ATask>();
     {
         for (int i = 0; i< 10; i++)
@@ -22,22 +22,22 @@ public class ATaskDAO extends AbstractDAO{
     }
 
     @Override
-    public List<AbstractTask> getAll() {
+    public List<ATask> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public AbstractTask getOne(long id) {
+    public ATask getOne(long id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void create(AbstractTask at) {
+    public void create(ATask task) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void edit(AbstractTask at) {
+    public void edit(ATask task) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
