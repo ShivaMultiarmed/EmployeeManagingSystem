@@ -20,19 +20,19 @@
             <h1>${task.title}</h1>
             <p>${task.description}</p>
             <ul>
-                <% if (!task.isSubTask() && !task.getInsides().isEmpty()) { 
-                for (AbstractTask aTask : task.getInsides())
+                <% if (task.getSupertaskid() > 0
+                    && !task.getInsides().isEmpty()) { 
+                for (ATask subTask : task.getInsides())
                 {
-                    ATask theTask = (ATask) aTask;
             %>
                     <li>
-                        <a href="/task/<%=theTask.getId()%>">
-                            <%=theTask.getTitle()%>
+                        <a href="/tasks/<%=subTask.getId()%>">
+                            <%=subTask.getTitle()%>
                         </a>
-                        <span><%=theTask.getStart()%></span>
-                        <span><%=theTask.getFinish()%></span>
-                        <a href="/task/<%=theTask.getAssignee().getId()%>">
-                            ${theTask.assignee.name}"
+                        <span><%=subTask.getStart()%></span>
+                        <span><%=subTask.getFinish()%></span>
+                        <a href="/tasks/<%=subTask.getAssignee().getId()%>">
+                            <%=subTask.getAssignee().getId()%>
                         </a>
                     </li>
             <% } 

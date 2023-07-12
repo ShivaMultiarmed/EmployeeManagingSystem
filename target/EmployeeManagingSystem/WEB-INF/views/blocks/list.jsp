@@ -2,7 +2,7 @@
 <%@page import="mikhail.shell.ems.models.TaskList"%>
 <%@page import="mikhail.shell.ems.models.AbstractTask"%>
 <%
-    TaskList list = (TaskList) request.getAttribute("taskList");
+    TaskList list = (TaskList) request.getAttribute("list");
 %>
 <div class="list">
     <h1>${list.title}</h1>

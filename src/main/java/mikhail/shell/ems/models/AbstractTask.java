@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class AbstractTask<T extends AbstractTask>
         implements Serializable {
-    @Getter protected long id;
+    @Getter protected int id;
     @Getter @Setter protected String title, description;
     @Getter @Setter protected Date start, finish;
     @Getter @Setter protected Employee assignee;
@@ -23,10 +23,10 @@ public class AbstractTask<T extends AbstractTask>
         insides = new ArrayList<T>();
         progress = Progress.TODO;
     }
-    public void setId(long id)
+    public void setId(int id)
     {   
         if (id != 0)
-            this.id = id;
+            this.id = id; 
     }
     public void addInside(T inside)
     {

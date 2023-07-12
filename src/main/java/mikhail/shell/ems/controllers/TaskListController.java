@@ -1,32 +1,35 @@
 package mikhail.shell.ems.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-import mikhail.shell.ems.dao.ATaskDAO;
+import mikhail.shell.ems.dao.TaskDAO;
 import mikhail.shell.ems.dao.ProjectDAO;
 import mikhail.shell.ems.dao.TaskListDAO;
 import mikhail.shell.ems.models.TaskList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 @Controller
 @RequestMapping("/tasklists")
 public class TaskListController extends AbstractController<TaskList> {
     
-    @Autowired
-    public TaskListController(ProjectDAO pDAO, 
-            TaskListDAO tlDAO, ATaskDAO aDAO) 
+    public TaskListController(
+            AnnotationConfigWebApplicationContext appContext,
+            ProjectDAO pDAO, 
+            TaskListDAO tlDAO, TaskDAO aDAO) 
     {
-        super(pDAO, tlDAO, aDAO);
+        super(appContext,pDAO, tlDAO, aDAO);
     }
 
     @Override
     public String view(HttpServletRequest request,
-            @PathVariable("id") long id) {
-        TaskList taskList = tlDAO.getOne(id); 
-        request.setAttribute("taskList",taskList);
+            @PathVariable("id") int id) {
+        TaskList list = tlDAO.getOne(id); 
+        request.setAttribute("list",list);
         return "tasklists/list";
     }
 
@@ -45,7 +48,7 @@ public class TaskListController extends AbstractController<TaskList> {
     }
 
     @Override
-    public String remove(@PathVariable("id") long id) {
+    public String remove(@PathVariable("id") int id) {
         tlDAO.remove(id);
         return "redirect: /";
     }

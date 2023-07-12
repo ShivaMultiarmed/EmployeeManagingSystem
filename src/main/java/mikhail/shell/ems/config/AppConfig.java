@@ -4,6 +4,10 @@ import java.nio.charset.Charset;
 import java.util.List;
 import javax.sql.DataSource;
 import mikhail.shell.ems.dao.AbstractDAO;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,9 +23,6 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
 @ComponentScan("mikhail.shell.ems")
@@ -31,6 +32,7 @@ public class AppConfig implements WebMvcConfigurer {
     public AppConfig(ApplicationContext context)
     {
         this.appContext = context;
+        System.out.println("Context is created " + context);
     }
     /*
     @Bean
@@ -102,5 +104,28 @@ public class AppConfig implements WebMvcConfigurer {
     public JdbcTemplate jdbcTemplate()
     {
         return new JdbcTemplate(dataSource());
-    }
+    }/*
+    @Bean
+    public SessionFactory sessionFactory()
+    {
+        StandardServiceRegistry registry = 
+                new StandardServiceRegistryBuilder().
+                configure().build();
+        SessionFactory sf = null;
+        try
+        {
+             sf = new MetadataSources(registry).
+                buildMetadata().buildSessionFactory();
+        }
+        catch (Exception ex)
+        {
+           ex.printStackTrace(System.out);
+        }
+        
+        sf.setDataSource(dataSource());
+        Properties props = new Properties();
+        props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        sf.setHibernateProperties(props);
+        return sf;
+    }*/
 }

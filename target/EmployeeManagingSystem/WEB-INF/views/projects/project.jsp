@@ -14,7 +14,7 @@
     </head>
     <body>
         <div>
-            <h1><%= project.getTitle() %></h1>
+            <h1>${project.title}</h1>
             <p>Описание <br /><%= project.getDescription() %></p>
         </div>
         <a href="<%= request.getContextPath() %>/projects/${project.id}/edit">edit</a>
@@ -25,13 +25,14 @@
         </form>   
             <div>
                 <%
-                    List<TaskList> taskLists = project.getInsides();
-                    for (TaskList taskList : taskLists)
+                    List<TaskList> lists = project.getInsides();
+                    for (TaskList list : lists)
                     {
-                        request.setAttribute("taskList", taskList);
+                        request.setAttribute("list", list);
                     %>
+                    
                     <jsp:include page="../blocks/list.jsp">
-                        <jsp:param name="model" value="taskList" />
+                        <jsp:param name="model" value="list" />
                     </jsp:include>
                     
                     <%

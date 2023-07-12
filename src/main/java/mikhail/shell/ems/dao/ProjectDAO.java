@@ -1,8 +1,8 @@
 package mikhail.shell.ems.dao;
 
 import java.util.List;
-import mikhail.shell.ems.models.AbstractTask;
 import mikhail.shell.ems.models.Project;
+import mikhail.shell.ems.models.TaskList;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,20 +16,24 @@ public class ProjectDAO extends AbstractDAO<Project> {
         super(jdbc);
     }
     @Override
-    public List<Project> getAll()
+    public List<Project> getAll(int userId)
     {
         return getJdbc().query("SELECT * FROM `projects`"
-            ,new BeanPropertyRowMapper(Project.class));
+                + " WHERE assigneeid = ?;",
+                new String[]{userId+""}
+                ,new BeanPropertyRowMapper(Project.class));
     }
     @Override
-    public Project getOne(long id) 
+    public Project getOne(int id) 
     {
-        List<Project> p = getJdbc().query("SELECT * FROM `projects`"
-                + " WHERE `id` = ?",
+        String sql = "SELECT * FROM `projects`"
+                + " WHERE `id` = ?";
+        List<Project> p = getJdbc().query(sql,
                 new String[]{id+""}, 
                 new BeanPropertyRowMapper(Project.class));
         if (p != null)
-            return p.get(0);
+        return p.get(0);
+            
         else 
             return null;
     }
