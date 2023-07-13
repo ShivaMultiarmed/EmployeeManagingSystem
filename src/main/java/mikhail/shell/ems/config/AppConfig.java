@@ -4,6 +4,10 @@ import java.nio.charset.Charset;
 import java.util.List;
 import javax.sql.DataSource;
 import mikhail.shell.ems.dao.AbstractDAO;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,9 +21,8 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @ComponentScan("mikhail.shell.ems")
@@ -29,7 +32,9 @@ public class AppConfig implements WebMvcConfigurer {
     public AppConfig(ApplicationContext context)
     {
         this.appContext = context;
+        System.out.println("Context is created " + context);
     }
+    /*
     @Bean
     public SpringResourceTemplateResolver templateResolver()
     {
@@ -56,6 +61,15 @@ public class AppConfig implements WebMvcConfigurer {
         ThymeleafViewResolver resolver = 
                 new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
+        registry.viewResolver(resolver);
+    }*/
+    
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        resolver.setViewClass(JstlView.class);
         registry.viewResolver(resolver);
     }
     
@@ -91,4 +105,31 @@ public class AppConfig implements WebMvcConfigurer {
     {
         return new JdbcTemplate(dataSource());
     }
+    /*@Bean
+    public SessionFactory appSessionFactory()
+    {
+        SessionFactory sf = null;
+        StandardServiceRegistry registry = 
+                new StandardServiceRegistryBuilder().
+                configure().build();
+        System.out.println(registry);
+        
+        try
+        {
+             sf = new MetadataSources(registry).
+                buildMetadata().buildSessionFactory();
+             System.out.println(sf);
+        }
+        catch (Exception ex)
+        {
+            StandardServiceRegistryBuilder.destroy(registry);
+           ex.printStackTrace(System.out);
+        }
+        
+        sf.setDataSource(dataSource());
+        Properties props = new Properties();
+        props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        sf.setHibernateProperties(props);
+        return sf;
+    }*/
 }

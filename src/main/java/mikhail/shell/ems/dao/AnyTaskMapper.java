@@ -11,7 +11,7 @@ public class AnyTaskMapper<T extends AbstractTask>
     @Override
     public AbstractTask mapRow(ResultSet set, int i) throws SQLException {
         AbstractTask p = new Project();
-        p.setId(set.getLong("id"));
+        p.setId(set.getInt("id"));
         p.setTitle(set.getString("title"));
         p.setDescription(set.getString("description"));
         return p;

@@ -10,7 +10,7 @@ public class AppServlet extends AbstractAnnotationConfigDispatcherServletInitial
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-       return null;
+       return null; //new Class[]{AppConfig.class};
     }
 
     @Override

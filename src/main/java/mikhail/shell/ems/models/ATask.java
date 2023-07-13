@@ -3,24 +3,25 @@ package mikhail.shell.ems.models;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
+import lombok.Setter;
 
-public final class ATask extends AbstractTask {
+public final class ATask extends AbstractTask<ATask> { 
     @Getter private List<Long> attachments;
-    @Getter private boolean isSubTask;
-    public ATask(boolean isSubTask){
-        setIsSubTask(isSubTask);
-    }
-    public ATask(boolean isSubTask, long id, String title)
+    @Getter @Setter private int supertaskid, tasklistid;
+    public ATask() {}
+    public ATask(int id, int superTaskId, String title)
     {
-        this(isSubTask);
         this.id = id;
+        setSuperTaskId(superTaskId);
         setTitle(title);
     }
-    public void setIsSubTask(boolean is)
+
+    public void setSuperTaskId(int id)
     {
-        if (is && insides!=null)
+        if (id >0 && insides!=null)
             insides = null;
-        else if (!is && insides == null)
-            insides = new ArrayList<AbstractTask>();
+        else if (id==0 && insides == null)
+            insides = new ArrayList<ATask>();
+        this.supertaskid = id;
     }
 }

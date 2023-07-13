@@ -1,44 +1,50 @@
 package mikhail.shell.ems.dao;
 
-import java.util.ArrayList;
 import java.util.List;
-import mikhail.shell.ems.models.AbstractTask;
 import mikhail.shell.ems.models.TaskList;
 import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope("singleton")
-public class TaskListDAO extends AbstractDAO {
-    private final List<TaskList> taskLists = new ArrayList<TaskList>();
-    
-    {
-        for (int i = 0; i< 5; i++)
-            taskLists.add(new TaskList(taskLists.size(), "Some list " + taskLists.size()));
-    }
+public class TaskListDAO extends AbstractDAO<TaskList> {
+   
     public TaskListDAO(JdbcTemplate jdbc)
     {
         super(jdbc);
     }
 
+    
     @Override
-    public List<AbstractTask> getAll() {
+    public List<TaskList> getAll(int projId)
+    {
+        String sql = "SELECT * FROM `tasklists`"
+                + "WHERE `projectid` = ?;";
+        List<TaskList> tls = getJdbc().query(sql, new String[]{projId+""},
+                new BeanPropertyRowMapper(TaskList.class));
+        return tls;
+    }
+
+    @Override
+    public TaskList getOne(int id) {
+        List<TaskList> tls = getJdbc().query("SELECT * FROM `tasklists` "
+                + "WHERE `id` = ?;", new String[] {id+""},
+                new BeanPropertyRowMapper(TaskList.class));
+        if (tls.isEmpty())
+            return null;
+        else
+            return tls.get(0);
+    }
+
+    @Override
+    public void create(TaskList taskList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public AbstractTask getOne(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void create(AbstractTask at) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void edit(AbstractTask at) {
+    public void edit(TaskList taskList) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

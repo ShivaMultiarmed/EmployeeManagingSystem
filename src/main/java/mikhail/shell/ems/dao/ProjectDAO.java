@@ -1,7 +1,6 @@
 package mikhail.shell.ems.dao;
 
 import java.util.List;
-import mikhail.shell.ems.models.AbstractTask;
 import mikhail.shell.ems.models.Project;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,31 +9,35 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("singleton")
-public class ProjectDAO extends AbstractDAO {
+public class ProjectDAO extends AbstractDAO<Project> {
     public ProjectDAO(JdbcTemplate jdbc)
     {
         super(jdbc);
     }
     @Override
-    public List<AbstractTask> getAll()
+    public List<Project> getAll(int userId)
     {
         return getJdbc().query("SELECT * FROM `projects`"
-            ,new BeanPropertyRowMapper(Project.class));
+                + " WHERE assigneeid = ?;",
+                new String[]{userId+""}
+                ,new BeanPropertyRowMapper(Project.class));
     }
     @Override
-    public AbstractTask getOne(long id) 
+    public Project getOne(int id) 
     {
-        List<Project> p = getJdbc().query("SELECT * FROM `projects`"
-                + " WHERE `id` = ?",
+        String sql = "SELECT * FROM `projects`"
+                + " WHERE `id` = ?";
+        List<Project> p = getJdbc().query(sql,
                 new String[]{id+""}, 
                 new BeanPropertyRowMapper(Project.class));
         if (p != null)
-            return p.get(0);
+        return p.get(0);
+            
         else 
             return null;
     }
     @Override
-    public void create(AbstractTask project)
+    public void create(Project project)
     {
         getJdbc().update("INSERT INTO `projects` ("
                 + "`title`, `description`"
@@ -44,7 +47,7 @@ public class ProjectDAO extends AbstractDAO {
                 project.getDescription());
     }
     @Override
-    public void edit(AbstractTask project)
+    public void edit(Project project)
     {
         getJdbc().update("UPDATE `projects` "
                 + "SET `title` = ?,"

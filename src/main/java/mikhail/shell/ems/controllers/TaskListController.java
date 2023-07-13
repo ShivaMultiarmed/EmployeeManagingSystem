@@ -1,69 +1,56 @@
 package mikhail.shell.ems.controllers;
 
-import mikhail.shell.ems.dao.ATaskDAO;
+import javax.servlet.http.HttpServletRequest;
+import mikhail.shell.ems.dao.TaskDAO;
 import mikhail.shell.ems.dao.ProjectDAO;
 import mikhail.shell.ems.dao.TaskListDAO;
-import mikhail.shell.ems.models.AbstractTask;
 import mikhail.shell.ems.models.TaskList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 @Controller
-@RequestMapping("/taskLists")
-public class TaskListController extends AbstractController {
+@RequestMapping("/tasklists")
+public class TaskListController extends AbstractController<TaskList> {
     
-    @Autowired
-    public TaskListController(ProjectDAO pDAO, 
-            TaskListDAO tlDAO, ATaskDAO aDAO) 
+    public TaskListController(
+            ApplicationContext appContext,
+            ProjectDAO pDAO, 
+            TaskListDAO tlDAO, TaskDAO aDAO) 
     {
-        super(pDAO, tlDAO, aDAO);
-    }
-
-    public String view(Model model,  @PathVariable("id") long id) {
-        AbstractTask taskList = tlDAO.getOne(id);
-        model.addAttribute("taskList",taskList);
-        return "taskLists/list";
+        super(appContext,pDAO, tlDAO, aDAO);
     }
 
     @Override
-    public String viewAll(Model model) {
-        return null;
+    public String view(HttpServletRequest request,
+            @PathVariable("id") int id) {
+        TaskList list = tlDAO.getOne(id); 
+        request.setAttribute("list",list);
+        return "tasklists/list";
     }
 
-    @Override
-    public String startCreation(Model model) {
-        AbstractTask taskList = new TaskList();
-        model.addAttribute("taskList", taskList);
-        return "taskLists/create";
+    @Override 
+    public String create(@ModelAttribute("taskList") 
+            TaskList taskList) {
+        tlDAO.create(taskList);
+        return "redirect: /tasklists/" + taskList.getId();
     }
 
-    @Override
-    public String endCreation(@ModelAttribute("taskList")
-            AbstractTask taskList) {
-        return "redirect: /taskLists/{id}";
-    }
-
-    @Override
-    public String startEdit(Model model, @PathVariable("id") long id) {
-        AbstractTask taskList = tlDAO.getOne(id);
-        model.addAttribute("taskList", taskList);
-        return "/taskLists/edit";
-    }
-
-    @Override
-    public String endEdit(@ModelAttribute("taskList")
-            AbstractTask taskList) {
+    @Override 
+    public String edit(@ModelAttribute("taskList") 
+            TaskList taskList) {
         tlDAO.edit(taskList);
         return "redirect: /tasklists/{id}";
     }
 
     @Override
-    public String remove(@PathVariable("id") long id) {
+    public String remove(@PathVariable("id") int id) {
         tlDAO.remove(id);
-        return "redirect";
+        return "redirect: /";
     }
+
 }
