@@ -2,6 +2,7 @@ package mikhail.shell.ems.controllers;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import mikhail.shell.ems.dao.TaskDAO;
 import mikhail.shell.ems.dao.ProjectDAO;
 import mikhail.shell.ems.dao.TaskListDAO;
@@ -11,6 +12,8 @@ import mikhail.shell.ems.models.TaskList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,26 +25,20 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 @RequestMapping("/projects")
 public class ProjectsController extends AbstractController<Project>{
     
-    //protected Session session;
-    
+    @Autowired
     public ProjectsController(
-            AnnotationConfigWebApplicationContext appContext,
-            ProjectDAO pDAO, 
-            TaskListDAO tlDAO, TaskDAO aDAO) 
+            ApplicationContext appContext,
+            ProjectDAO pDAO,  
+            TaskListDAO tlDAO, TaskDAO aDAO)
     {
         super(appContext,pDAO, tlDAO, aDAO);
-        
-        //session = appContext.getBean("sessionFactory",
-          //      SessionFactory.class).openSession();
     }
+    
     
     @Override
     public String view(HttpServletRequest request
             , @PathVariable("id") int id)
     {
-        Project o = appContext.getBean(Project.class);
-        o.setTitle("Project via bean");
-        System.out.println(o.getTitle());
         Project p = pDAO.getOne(id);
         List<TaskList> lists  = tlDAO.getAll(id);
         List<ATask> tasks = null;

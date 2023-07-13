@@ -1,7 +1,10 @@
 package mikhail.shell.ems.dao;
 
 import java.util.List;
+import org.hibernate.Query;
+import mikhail.shell.ems.controllers.AbstractController;
 import mikhail.shell.ems.models.ATask;
+import mikhail.shell.ems.models.Employee;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +26,7 @@ public class TaskDAO extends AbstractDAO<ATask>{
                 new BeanPropertyRowMapper(ATask.class));
         return tasks;
     }
+    
 
     @Override
     public ATask getOne(int id) {

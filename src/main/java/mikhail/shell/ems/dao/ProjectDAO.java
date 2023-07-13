@@ -2,7 +2,6 @@ package mikhail.shell.ems.dao;
 
 import java.util.List;
 import mikhail.shell.ems.models.Project;
-import mikhail.shell.ems.models.TaskList;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

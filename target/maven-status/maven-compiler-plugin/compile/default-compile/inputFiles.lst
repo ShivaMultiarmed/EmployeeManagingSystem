@@ -4,6 +4,7 @@ D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\d
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\models\Project.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\controllers\TaskController.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\controllers\TaskListController.java
+D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\dao\EmployeeDAO.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\dao\ProjectDAO.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\controllers\AbstractController.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\dao\AnyTaskMapper.java
@@ -15,4 +16,5 @@ D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\m
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\dao\TaskListDAO.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\config\AppConfig.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\models\AbstractTask.java
+D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\config\AppHibernateUtil.java
 D:\Java Spring Projects\EmployeeManagingSystem\src\main\java\mikhail\shell\ems\models\Employee.java

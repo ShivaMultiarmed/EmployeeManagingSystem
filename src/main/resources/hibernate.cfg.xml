@@ -3,18 +3,20 @@
 <hibernate-configuration>
     <session-factory>
         
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ems</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password"></property>
-        <!--<property name="hibernate.connection.datasource">
+        <property name="hibernate.connection.password"></property>-->
+        <property name="hibernate.connection.datasource">
             java:comp/env/jdbc/dataSource
-        </property>-->
+        </property>
         <property name="hibernate.current_session_context_class">
             thread
         </property>
         <property name="hibernate.connection.characterEncoding">
             utf8
         </property>
+        <mapping class="mikhail.shell.ems.models.Employee" />
+        <mapping class="mikhail.shell.ems.models.Department" />
     </session-factory>
 </hibernate-configuration>

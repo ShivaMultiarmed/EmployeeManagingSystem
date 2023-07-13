@@ -18,7 +18,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 public class TaskListController extends AbstractController<TaskList> {
     
     public TaskListController(
-            AnnotationConfigWebApplicationContext appContext,
+            ApplicationContext appContext,
             ProjectDAO pDAO, 
             TaskListDAO tlDAO, TaskDAO aDAO) 
     {

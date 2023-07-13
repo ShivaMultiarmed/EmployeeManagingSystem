@@ -5,18 +5,16 @@ import mikhail.shell.ems.dao.TaskDAO;
 import mikhail.shell.ems.dao.ProjectDAO;
 import mikhail.shell.ems.dao.TaskListDAO;
 import mikhail.shell.ems.models.ATask;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 @RequestMapping("/tasks")
 public class TaskController extends AbstractController <ATask> {
 
     
     public TaskController(
-            AnnotationConfigWebApplicationContext appContext,
+            ApplicationContext appContext,
             ProjectDAO pDAO, 
             TaskListDAO tlDAO, TaskDAO aDAO) 
     {

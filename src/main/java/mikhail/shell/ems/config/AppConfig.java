@@ -104,21 +104,25 @@ public class AppConfig implements WebMvcConfigurer {
     public JdbcTemplate jdbcTemplate()
     {
         return new JdbcTemplate(dataSource());
-    }/*
-    @Bean
-    public SessionFactory sessionFactory()
+    }
+    /*@Bean
+    public SessionFactory appSessionFactory()
     {
+        SessionFactory sf = null;
         StandardServiceRegistry registry = 
                 new StandardServiceRegistryBuilder().
                 configure().build();
-        SessionFactory sf = null;
+        System.out.println(registry);
+        
         try
         {
              sf = new MetadataSources(registry).
                 buildMetadata().buildSessionFactory();
+             System.out.println(sf);
         }
         catch (Exception ex)
         {
+            StandardServiceRegistryBuilder.destroy(registry);
            ex.printStackTrace(System.out);
         }
         

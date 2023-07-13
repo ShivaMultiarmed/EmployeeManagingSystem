@@ -2,16 +2,33 @@ package mikhail.shell.ems.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Entity;
 
+
+@Entity
+@Table(name = "departments")
+@Getter @Setter
 public class Department {
 
-    @Getter private short id;
-    @Getter @Setter private String title; 
-    @Getter @Setter private Employee manager;
-    @Getter private final List<Employee> employees;
-    @Getter private final List<Department> subDepartments;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Setter(AccessLevel.NONE)
+    private short id;
+    
+    private String title; 
+    private Employee manager;
+    @Transient
+    @Setter(AccessLevel.NONE)private final List<Employee> employees;
+    @Transient
+    @Setter(AccessLevel.NONE)private final List<Department> subDepartments;
     
     public Department(){
         employees = new ArrayList<Employee>();  
